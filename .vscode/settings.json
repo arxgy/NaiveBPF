@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "signal.h": "c",
+        "unistd.h": "c",
+        "stdio.h": "c",
+        "strings.h": "c",
+        "libaio.h": "c",
+        "aio.h": "c",
+        "aio_abi.h": "c",
+        "errno.h": "c",
+        "pthread.h": "c",
+        "config.h": "c",
+        "atomic": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
+}
