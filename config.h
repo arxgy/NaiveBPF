@@ -22,3 +22,9 @@
 #define boolean size_t
 #define true 1
 #define false 0
+
+#define URING_POLL_EN true
+#define URING_REGFILE_EN true
+#define URING_REGBUFF_EN true
+
+#define POSIX_POLL_EN true

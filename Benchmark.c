@@ -17,13 +17,14 @@ unsigned posix_aio_cnt = 0;
 int main(int argc, char **argv) {
     init();
     for (int i = 0 ; i < ITERATION ; i++) {
-        printf("[current iteration] %d; [target iteration] %d\n", i+1, ITERATION);
+        // printf("[current iteration] %d; [target iteration] %d\n", i+1, ITERATION);
         preread();
-        TEST_io_uring(false, true, false);
+        TEST_io_uring(URING_POLL_EN, URING_REGFILE_EN, URING_REGBUFF_EN);
         TEST_libaio();
-        TEST_glibc_aio(true);
+        TEST_glibc_aio(POSIX_POLL_EN);
     }
     reclaim();
+    printf("Benchmark Test Finished\n");
     return 0;
 }
 void preread() {
@@ -51,6 +52,18 @@ void init() {
     if (!pipes) exception("malloc failed");
     for (int i = 0; i < CORCURRENCY; i++) 
         if (pipe2(pipes+2*i, O_NONBLOCK | O_DIRECT)) exception("pipe failed");
+    // print something
+    printf("BATCH  SIZE %20d\n", BATCH_SIZE);
+    printf("BUFFER SIZE %20d\n", BATCH_SIZE);
+    printf("FILE CORCURRENCY %15d\n", 2*CORCURRENCY);
+    printf("-URING [polling]=");
+    URING_POLL_EN ? printf("TRUE\n") : printf("FALSE\n");
+    printf("-URING [register file]]=");
+    URING_REGFILE_EN ? printf("TRUE\n") : printf("FALSE\n");
+    printf("-URING [register buffer]=");
+    URING_REGBUFF_EN ? printf("TRUE\n") : printf("FALSE\n");
+    printf("-POSIX aio [polling]=");
+    POSIX_POLL_EN ? printf("TRUE\n") : printf("FALSE\n");
     sleep(5);
 }
 void reclaim() {
