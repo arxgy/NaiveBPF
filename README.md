@@ -8,6 +8,12 @@ Output the total and partial time cost of different async I/O libs (io_uring, na
 
 #### Environment configuration 
 
+- Support libaio
+
+```
+sudo apt-get install libaio1
+```
+
 - Support USDT
 
 ```
